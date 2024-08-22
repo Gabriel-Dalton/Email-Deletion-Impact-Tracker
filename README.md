@@ -45,7 +45,7 @@ The Email Deletion Impact Tracker is a simple web application that helps users m
 1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/your-username/email-deletion-impact-tracker.git
+    git clone https://github.com/gabriel-dalton/email-deletion-impact-tracker.git
     cd email-deletion-impact-tracker
     ```
 
