@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CO₂ Saved Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <div class="fixed-top fixed-left p-4">
+        <p>Mittler Senior Technology</p>
+    </div>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Exo+2&display=swap');
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            margin: 0 auto;
+            background-color: #f9f9f9;
+            max-width: 400px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: #28a745;
+            white-space: nowrap;
+            margin-bottom: 100px;
+            font-size: 75px;
+            
+        }
+
+        #totalCO2Saved, #equivalentBottles {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #f9f9f9;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+    </style>
+<script type="module">
+    // Import necessary Firebase modules
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js';
+    import { getDatabase, ref, get } from 'https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js';
+
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "(YOUR INFORMATION)",
+      databaseURL: "(YOUR INFORMATION)",
+      projectId: "(YOUR INFORMATION)",
+      storageBucket: "(YOUR INFORMATION)",
+      messagingSenderId: "(YOUR INFORMATION)",
+      appId: "(YOUR INFORMATION)",
+      measurementId: "(YOUR INFORMATION)"
+    };
+
+    const firebaseApp = initializeApp(firebaseConfig);
+
+    // Function to retrieve total CO2 saved from 'emailImpactData'
+    async function getTotalCO2Saved() {
+        const database = getDatabase();
+        const emailImpactDataRef = ref(database, 'emailImpactData');
+
+        const snapshot = await get(emailImpactDataRef);
+        const data = snapshot.val();
+
+        return data ? data.totalCO2Saved : 0;
+    }
+
+    // Function to retrieve equivalent bottles saved
+    async function getEquivalentBottles() {
+        const database = getDatabase();
+        const emailImpactDataRef = ref(database, 'emailImpactData');
+
+        const snapshot = await get(emailImpactDataRef);
+        const data = snapshot.val();
+
+        return data ? data.equivalentBottles : 0;
+    }
+
+    // Display total CO2 saved and equivalent bottles on page load
+    window.onload = async function () {
+        const totalCO2Saved = await getTotalCO2Saved();
+        const equivalentBottles = await getEquivalentBottles();
+
+        document.getElementById("totalCO2Saved").innerText = `Total CO₂ Saved: ${totalCO2Saved} kg`;
+        document.getElementById("equivalentBottles").innerText = `Equivalent Bottles Saved: ${equivalentBottles} bottles`;
+    };
+</script>
+
+</head>
+<h1>CO₂ Saved Dashboard</h1></b>
+<body>
+
+    <div id="totalCO2Saved"></div>
+    <div id="equivalentBottles"></div>
+</body>
+<br><a href="sizefinder.html"><p class="btn btn-success">View Calculator</p></a>
+</html>
+<div class="fixed-bottom fixed-center p-4 text-center">
+    <p class="m-0" id="footer-year">MST © </p>
+    <p>Made by Gabriel Dalton</p>
+</div>
+<script>
+    document.getElementById("footer-year").innerHTML += new Date().getFullYear();
+</script>
